@@ -17,7 +17,8 @@ gem 'rake'
 
 gem 'shotgun'
 
-gem 'debugger'
+
+gem 'byebug'
 
 group :test do
   gem 'faker'

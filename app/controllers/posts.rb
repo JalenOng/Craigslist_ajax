@@ -5,8 +5,10 @@ get '/posts/new' do
 end
 
 post '/posts' do
-  post = Post.create(params[:post])
-  redirect "/posts/#{post.id}"
+  byebug
+  @post = Post.create(params[:post])
+  # redirect "/posts/#{post.id}"
+  @post.to_json
 end
 
 get '/posts' do
@@ -16,6 +18,8 @@ end
 
 get '/posts/:id' do
   @post = Post.find(params[:id])
+
+
   erb :'posts/show'
 end
 

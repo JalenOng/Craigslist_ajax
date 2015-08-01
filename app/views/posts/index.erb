@@ -1,3 +1,61 @@
-<% @posts.each do |p| %>
-  <a href='<%= "/posts/#{p.id}" %>'><%= p.proper_title %></a>
+
+<div class = "post-area">
+	<% @posts.each do |p| %>
+  <p><a class="Post" href='<%= "/posts/#{p.id}" %>' data-id='<%= p.id %>'><%= p.proper_title %></a></p>
 <% end %>
+</div>
+
+
+
+<br />
+<br />
+
+
+<a id="new-post" href="/posts/new">Create New Post</a>
+
+<br />
+<br />
+
+<div>
+  <form id="create-post-form" action="/posts" method="POST" style="display:none;">
+	<label>Post title:</label>
+	<input type="text" name="post[title]">
+	<br />
+	<label>Post body:</label>
+	<textarea name="post[body]" rows="20" cols="50"></textarea>
+	<input type="submit" value="Create my cool post">
+</form>
+</div>
+
+<script>
+	$(document).ready(function(){
+		$("#new-post").click(function(event){
+			
+			event.preventDefault();
+			$("#create-post-form").css("display", "initial")
+
+			$("#create-post-form").submit(function(event){
+				event.preventDefault();
+				var self = $(this);
+				var action = self.attr("action");
+				var method = self.attr("method");
+				var data = self.serialize();
+
+				$.ajax({
+					type: method,
+					url: action,
+					data: data,
+					dataType: "json",
+					success: function(response) { 
+						$(".post-area").append('<a href="/posts/' + response["id"] + '"><p>' +response["title"] + '</p></a>') },
+					error: function(request, errorType, errorMessage) {
+						debugger
+alert('Error: ' + errorType + ' with message: ' + errorMessage)}
+				})
+			})
+		})
+	})
+</script>
+
+
+
