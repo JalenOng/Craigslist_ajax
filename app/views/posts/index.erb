@@ -22,7 +22,7 @@
 	<input type="text" name="post[title]">
 	<br />
 	<label>Post body:</label>
-	<textarea name="post[body]" rows="20" cols="50"></textarea>
+	<textarea name="post[description]" rows="20" cols="50"></textarea>
 	<input type="submit" value="Create my cool post">
 </form>
 </div>
@@ -36,11 +36,12 @@
 
 			$("#create-post-form").submit(function(event){
 				event.preventDefault();
+
 				var self = $(this);
 				var action = self.attr("action");
 				var method = self.attr("method");
 				var data = self.serialize();
-
+			
 				$.ajax({
 					type: method,
 					url: action,
@@ -49,7 +50,7 @@
 					success: function(response) { 
 						$(".post-area").append('<a href="/posts/' + response["id"] + '"><p>' +response["title"] + '</p></a>') },
 					error: function(request, errorType, errorMessage) {
-						debugger
+				
 alert('Error: ' + errorType + ' with message: ' + errorMessage)}
 				})
 			})

@@ -5,7 +5,7 @@ get '/posts/new' do
 end
 
 post '/posts' do
-  byebug
+
   @post = Post.create(params[:post])
   # redirect "/posts/#{post.id}"
   @post.to_json
